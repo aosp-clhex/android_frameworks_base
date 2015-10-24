@@ -5796,7 +5796,13 @@ public final class Settings {
          */
         public static final String SCREEN_FLASH_NOTIFICATION_COLOR =
                 "screen_flash_notification_color_global";
-
+        
+        /**
+         * Switch for lockscreen media metadata
+         * @hide
+         */
+        public static final String LOCKSCREEN_MEDIA_METADATA = "lockscreen_media_metadata";
+        
         /**
          * Adaptive playback
          * Automatically pause media when the volume is muted and
