@@ -1,0 +1,5 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Network traffic -->
+    <dimen name="network_traffic_width">25sp</dimen>
+</resources>
