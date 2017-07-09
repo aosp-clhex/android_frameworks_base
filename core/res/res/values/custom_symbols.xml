@@ -11,4 +11,6 @@
     <!-- Leds -->
     <java-symbol type="bool" name="config_intrusiveBatteryLed" />
 
+    <!-- Sensor block -->
+    <java-symbol type="array" name="config_blockPackagesSensorDrain" />
 </resources>
