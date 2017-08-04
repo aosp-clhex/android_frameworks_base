@@ -5823,6 +5823,12 @@ public final class Settings {
          * @hide
          */
         public static final String SCREENSHOT_SHUTTER_SOUND = "screenshot_shutter_sound";
+        
+        /**
+        * Sensor block per-package
+         * @hide
+         */
+        public static final String SENSOR_BLOCK = "sensor_block";
 
         /**
          * IMPORTANT: If you add a new public settings you also have to add it to
@@ -6220,6 +6226,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCKSCREEN_ALBUMART_FILTER);
             PRIVATE_SETTINGS.add(LS_MEDIA_FILTER_BLUR_RADIUS);
             PRIVATE_SETTINGS.add(LS_MEDIA_ARTWORK_FADE_PERCENT);
+            PRIVATE_SETTINGS.add(SENSOR_BLOCK);
         }
 
         /**
