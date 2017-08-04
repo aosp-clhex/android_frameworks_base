@@ -102,5 +102,6 @@ public class SystemSettings {
         Settings.System.SCREEN_FLASH_NOTIFICATION_COLOR,
         Settings.System.NETWORK_TRAFFIC_STATE,
         Settings.System.NETWORK_TRAFFIC_AUTOHIDE,
+        Settings.System.SENSOR_BLOCK,
     };
 }
