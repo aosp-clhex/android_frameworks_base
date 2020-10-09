@@ -478,4 +478,10 @@ public interface CentralSurfaces extends Dumpable, LifecycleOwner {
             ExpandableNotificationRow associatedView);
 
     GameSpaceManager getGameSpaceManager();
+
+    View getDismissAllButton();
+
+    void updateDismissAllVisibility(boolean visible);
+
+    void updateDismissAllButton();
 }
