@@ -6043,8 +6043,27 @@ public final class Settings {
         /**
          * Show app volume rows in volume panel
          * @hide
+
          */
         public static final String SHOW_APP_VOLUME = "show_app_volume";
+        
+        /**
+        * reTicker Status
+        * @hide
+        */
+       public static final String RETICKER_STATUS = "reticker_status";
+
+       /**
+        * reTicker Colored
+        * @hide
+        */
+       public static final String RETICKER_COLORED = "reticker_colored";
+
+       /**
+        * Only enable reTicker in landscape mode
+        * @hide
+        */
+       public static final String RETICKER_LANDSCAPE_ONLY = "reticker_landscape_only";
 
         /**
          * Whether to show material Dismiss All Button for notifications
