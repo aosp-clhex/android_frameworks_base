@@ -1,6 +1,8 @@
 /*
  * Copyright (C) 2022 Paranoid Android
  * Copyright (C) 2022 StatiXOS
+ *           (C) 2023 ArrowOS
+ *           (C) 2023 The LibreMobileOS Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +19,17 @@
 
 package com.android.internal.util;
 
+import android.app.ActivityTaskManager;
 import android.app.Application;
 import android.content.Context;
+import android.app.TaskStackListener;
+import android.content.ComponentName;
 import android.content.res.Resources;
+import android.os.Binder;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.text.TextUtils;
+import android.os.Process;
 import android.util.Log;
 
 import com.android.internal.R;
@@ -63,8 +70,11 @@ public class PropImitationHooks {
         sP7Props.put("FINGERPRINT", "google/cheetah/cheetah:13/TQ3A.230805.001/10316531:user/release-keys");
     }
 
-    private static volatile boolean sIsGms = false;
-    private static volatile boolean sIsFinsky = false;
+    private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY = ComponentName.unflattenFromString(
+            "com.google.android.gms/.auth.uiflows.minutemaid.MinuteMaidActivity");
+
+    private static volatile String sProcessName;
+    private static volatile boolean sIsGms, sIsFinsky;
 
     public static void setProps(Context context) {
         final String packageName = context.getPackageName();
@@ -75,6 +85,7 @@ public class PropImitationHooks {
             return;
         }
 
+        sProcessName = processName;
         sIsGms = packageName.equals(PACKAGE_GMS) && processName.equals(PROCESS_GMS_UNSTABLE);
         sIsFinsky = packageName.equals(PACKAGE_FINSKY);
 
@@ -88,13 +99,14 @@ public class PropImitationHooks {
             dlog("Setting stock fingerprint for: " + packageName);
             setPropValue("FINGERPRINT", sStockFp);
         } else if (packageName.equals(PACKAGE_SUBSCRIPTION_RED) || packageName.equals(PACKAGE_TURBO)
-                   || packageName.equals(PACKAGE_VELVET) || packageName.equals(PACKAGE_GBOARD) || packageName.equals(PACKAGE_SETUPWIZARD) || packageName.equals(PACKAGE_GMS)) {
+                   || packageName.equals(PACKAGE_VELVET) || packageName.equals(PACKAGE_GBOARD)
+                   || packageName.equals(PACKAGE_SETUPWIZARD) || packageName.equals(PACKAGE_GMS)) {
             dlog("Spoofing Pixel 7 Pro for: " + packageName);
             sP7Props.forEach((k, v) -> setPropValue(k, v));
         }
     }
 
-    private static void setPropValue(String key, Object value){
+    private static void setPropValue(String key, Object value) {
         try {
             dlog("Setting prop " + key + " to " + value.toString());
             Field field = Build.class.getDeclaredField(key);
@@ -121,17 +133,64 @@ public class PropImitationHooks {
     }
 
     private static void spoofBuildGms() {
-        // Alter model name and fingerprint to avoid hardware attestation enforcement
-        setPropValue("FINGERPRINT", "google/marlin/marlin:7.1.2/NJH47F/4146041:user/release-keys");
-        setPropValue("PRODUCT", "marlin");
-        setPropValue("DEVICE", "marlin");
-        setPropValue("MODEL", "Pixel XL");
-        setVersionField("DEVICE_INITIAL_SDK_INT", Build.VERSION_CODES.N_MR1);
+        final boolean was = isGmsAddAccountActivityOnTop();
+        final TaskStackListener taskStackListener = new TaskStackListener() {
+            @Override
+            public void onTaskStackChanged() {
+                final boolean is = isGmsAddAccountActivityOnTop();
+                if (is ^ was) {
+                    dlog("GmsAddAccountActivityOnTop is:" + is + " was:" + was +
+                            ", killing myself!"); // process will restart automatically later
+                    Process.killProcess(Process.myPid());
+                }
+            }
+        };
+        if (!was) {
+            // Alter model name and fingerprint to avoid hardware attestation enforcement
+            setPropValue("FINGERPRINT", "google/marlin/marlin:7.1.2/NJH47F/4146041:user/release-keys");
+            setPropValue("PRODUCT", "marlin");
+            setPropValue("DEVICE", "marlin");
+            setPropValue("MODEL", "Pixel XL");
+            setVersionField("DEVICE_INITIAL_SDK_INT", Build.VERSION_CODES.N_MR1);
+        } else {
+            dlog("Skip spoofing build for GMS, because GmsAddAccountActivityOnTop");
+        }
+        try {
+            ActivityTaskManager.getService().registerTaskStackListener(taskStackListener);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to register task stack listener!", e);
+        }
     }
 
     private static boolean isCallerSafetyNet() {
         return sIsGms && Arrays.stream(Thread.currentThread().getStackTrace())
                 .anyMatch(elem -> elem.getClassName().contains("DroidGuard"));
+    }
+
+    private static boolean isGmsAddAccountActivityOnTop() {
+        try {
+            final ActivityTaskManager.RootTaskInfo focusedTask =
+                    ActivityTaskManager.getService().getFocusedRootTaskInfo();
+            return focusedTask != null && focusedTask.topActivity != null
+                    && focusedTask.topActivity.equals(GMS_ADD_ACCOUNT_ACTIVITY);
+        } catch (Exception e) {
+            Log.e(TAG, "Unable to get top activity!", e);
+        }
+        return false;
+    }
+
+    public static boolean shouldBypassTaskPermission(Context context) {
+        // GMS doesn't have MANAGE_ACTIVITY_TASKS permission
+        final int callingUid = Binder.getCallingUid();
+        final int gmsUid;
+        try {
+            gmsUid = context.getPackageManager().getApplicationInfo(PACKAGE_GMS, 0).uid;
+            dlog("shouldBypassTaskPermission: gmsUid:" + gmsUid + " callingUid:" + callingUid);
+        } catch (Exception e) {
+            Log.e(TAG, "shouldBypassTaskPermission: unable to get gms uid", e);
+            return false;
+        }
+        return gmsUid == callingUid;
     }
 
     public static void onEngineGetCertificateChain() {
@@ -143,6 +202,6 @@ public class PropImitationHooks {
     }
 
     public static void dlog(String msg) {
-      if (DEBUG) Log.d(TAG, msg);
+        if (DEBUG) Log.d(TAG, "[" + sProcessName + "] " + msg);
     }
 }
