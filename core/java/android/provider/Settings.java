@@ -5963,10 +5963,10 @@ public final class Settings {
         public static final String GLOBAL_ACTIONS_LIST = "global_actions_list";
 
         /**
-         * Give haptic feedback on brightness slider changes.
+         * Haptic feedback on brightness slider
          * @hide
          */
-        public static final String BRIGHTNESS_SLIDER_HAPTIC_ENABLED = "brightness_slider_haptic_enabled";
+        public static final String QS_BRIGHTNESS_SLIDER_HAPTIC = "qs_brightness_slider_haptic";
 
         /**
          * Give haptic feedback on volume slider changes.
