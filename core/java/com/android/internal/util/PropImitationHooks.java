@@ -64,10 +64,10 @@ public class PropImitationHooks {
     static {
         sP7Props.put("BRAND", "google");
         sP7Props.put("MANUFACTURER", "Google");
-        sP7Props.put("DEVICE", "cheetah");
-        sP7Props.put("PRODUCT", "cheetah");
-        sP7Props.put("MODEL", "Pixel 7 Pro");
-        sP7Props.put("FINGERPRINT", "google/cheetah/cheetah:13/TQ3A.230805.001/10316531:user/release-keys");
+        sP7Props.put("DEVICE", "husky");
+        sP7Props.put("PRODUCT", "husky");
+        sP7Props.put("MODEL", "Pixel 8 Pro");
+        sP7Props.put("FINGERPRINT", "google/husky/husky:14/UD1A.230803.041/10808477:user/release-keys");
     }
 
     private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY = ComponentName.unflattenFromString(
