@@ -5820,11 +5820,124 @@ public final class Settings {
         public static final String LOCKSCREEN_MEDIA_METADATA = "LOCKSCREEN_MEDIA_METADATA";
 
         /**
+         * @hide
+         */
+        public static final String SCREENSHOT_SHUTTER_SOUND = "screenshot_shutter_sound";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
          * the setting value. See an example above.
          */
+
+       /**
+         * Whether or not volume button music controls should be enabled to seek media tracks
+         * @hide
+         */
+        public static final String VOLBTN_MUSIC_CONTROLS = "volbtn_music_controls";
+
+        /**
+        * Controls whether gestures are enabled.
+        * @hide
+        */
+       public static final String GESTURES_ENABLED = "gestures_enabled";
+
+       /**
+        * Controls whether double tap to wake is enabled.
+        * @hide
+        */
+       public static final String GESTURE_DOUBLE_TAP = "gesture_double_tap";
+
+       /**
+        * Controls whether single tap to wake is enabled.
+        * @hide
+        */
+       public static final String GESTURE_SINGLE_TAP = "gesture_single_tap";
+
+       /**
+        * Controls whether draw V gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_DRAW_V = "gesture_draw_v";
+
+       /**
+        * Controls whether draw inverse V gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_DRAW_INVERSE_V = "gesture_draw_inverse_v";
+
+       /**
+        * Controls whether draw O gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_DRAW_O = "gesture_draw_o";
+
+       /**
+        * Controls whether draw M gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_DRAW_M = "gesture_draw_m";
+
+       /**
+        * Controls whether draw W gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_DRAW_W = "gesture_draw_w";
+
+       /**
+        * Controls whether draw S gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_DRAW_S = "gesture_draw_s";
+
+       /**
+        * Controls whether draw arrow left gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_DRAW_ARROW_LEFT = "gesture_draw_arrow_left";
+
+       /**
+        * Controls whether draw arrow right gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_DRAW_ARROW_RIGHT = "gesture_draw_arrow_right";
+
+       /**
+        * Controls whether one finger swipe up gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_ONE_FINGER_SWIPE_UP = "gesture_one_finger_swipe_up";
+
+       /**
+        * Controls whether one finger swipe right gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_ONE_FINGER_SWIPE_RIGHT = "gesture_one_finger_swipe_right";
+
+       /**
+        * Controls whether one finger swipe down gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_ONE_FINGER_SWIPE_DOWN = "gesture_one_finger_swipe_down";
+
+       /**
+        * Controls whether one finger swipe left gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_ONE_FINGER_SWIPE_LEFT = "gesture_one_finger_swipe_left";
+
+       /**
+        * Controls whether two finger swipe gesture is enabled.
+        * @hide
+        */
+       public static final String GESTURE_TWO_FINGER_SWIPE = "gesture_two_finger_swipe";
+
+        /**
+         * Whether the torch launch gesture when the screen is off should be enabled.
+         * @hide
+         */
+        public static final String TORCH_POWER_BUTTON_GESTURE = "torch_power_button_gesture";
 
         /**
          * Switch between filters for lockscreen album art
@@ -5981,6 +6094,21 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SCREEN_FLASH_NOTIFICATION);
             PRIVATE_SETTINGS.add(SCREEN_FLASH_NOTIFICATION_COLOR);
             PRIVATE_SETTINGS.add(CALL_CONNECTED_TONE_ENABLED);
+            PRIVATE_SETTINGS.add(GESTURES_ENABLED);
+            PRIVATE_SETTINGS.add(GESTURE_DOUBLE_TAP);
+            PRIVATE_SETTINGS.add(GESTURE_SINGLE_TAP);
+            PRIVATE_SETTINGS.add(GESTURE_DRAW_V);
+            PRIVATE_SETTINGS.add(GESTURE_DRAW_INVERSE_V);
+            PRIVATE_SETTINGS.add(GESTURE_DRAW_O);
+            PRIVATE_SETTINGS.add(GESTURE_DRAW_M);
+            PRIVATE_SETTINGS.add(GESTURE_DRAW_W);
+            PRIVATE_SETTINGS.add(GESTURE_DRAW_S);
+            PRIVATE_SETTINGS.add(GESTURE_DRAW_ARROW_LEFT);
+            PRIVATE_SETTINGS.add(GESTURE_DRAW_ARROW_RIGHT);
+            PRIVATE_SETTINGS.add(GESTURE_ONE_FINGER_SWIPE_UP);
+            PRIVATE_SETTINGS.add(GESTURE_ONE_FINGER_SWIPE_RIGHT);
+            PRIVATE_SETTINGS.add(GESTURE_ONE_FINGER_SWIPE_DOWN);
+            PRIVATE_SETTINGS.add(GESTURE_ONE_FINGER_SWIPE_LEFT);
         }
 
         /**
@@ -10141,13 +10269,6 @@ public final class Settings {
          */
         @Readable
         public static final String ATTENTIVE_TIMEOUT = "attentive_timeout";
-
-        /**
-         * Controls whether double tap to wake is enabled.
-         * @hide
-         */
-        @Readable
-        public static final String DOUBLE_TAP_TO_WAKE = "double_tap_to_wake";
 
         /**
          * The current assistant component. It could be a voice interaction service,

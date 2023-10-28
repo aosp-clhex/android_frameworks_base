@@ -48,7 +48,6 @@
         <item><xliff:g id="id">@string/status_bar_cast</xliff:g></item>
         <item><xliff:g id="id">@string/status_bar_screen_record</xliff:g></item>
         <item><xliff:g id="id">@string/status_bar_vpn</xliff:g></item>
-        <item><xliff:g id="id">@string/status_bar_bluetooth</xliff:g></item>
         <item><xliff:g id="id">@string/status_bar_camera</xliff:g></item>
         <item><xliff:g id="id">@string/status_bar_microphone</xliff:g></item>
         <item><xliff:g id="id">@string/status_bar_location</xliff:g></item>
@@ -56,6 +55,7 @@
         <item><xliff:g id="id">@string/status_bar_volume</xliff:g></item>
         <item><xliff:g id="id">@string/status_bar_zen</xliff:g></item>
         <item><xliff:g id="id">@string/status_bar_ethernet</xliff:g></item>
+        <item><xliff:g id="id">@string/status_bar_bluetooth</xliff:g></item>
         <item><xliff:g id="id">@string/status_bar_wifi</xliff:g></item>
         <item><xliff:g id="id">@string/status_bar_hotspot</xliff:g></item>
         <item><xliff:g id="id">@string/status_bar_mobile</xliff:g></item>
@@ -3791,9 +3791,6 @@
 
     <!-- This config is ued to determine whether animations are allowed in low power mode. -->
     <bool name="config_allowAnimationsInLowPowerMode">false</bool>
-
-    <!-- Whether device supports double tap to wake -->
-    <bool name="config_supportDoubleTapWake">false</bool>
 
     <!-- The RadioAccessFamilies supported by the device.
          Empty is viewed as "all".  Only used on devices which
