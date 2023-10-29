@@ -5958,11 +5958,6 @@ public final class Settings {
         public static final String LS_MEDIA_ARTWORK_FADE_PERCENT = "ls_media_artwork_fade_percent";
 
         /**
-        * @hide
-         */
-        public static final String GLOBAL_ACTIONS_LIST = "global_actions_list";
-
-        /**
          * Haptic feedback on brightness slider
          * @hide
          */
@@ -11070,11 +11065,6 @@ public final class Settings {
          */
         @Readable
         public static final String NOTIFICATION_DISMISS_RTL = "notification_dismiss_rtl";
-
-        /**
-         * @hide
-         */
-        public static final String ADVANCED_REBOOT = "advanced_reboot";
 
         /**
          * Comma separated list of QS tiles that have been auto-added already.
