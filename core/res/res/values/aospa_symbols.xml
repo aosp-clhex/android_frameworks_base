@@ -95,4 +95,7 @@
     <java-symbol name="reboot_system_message" type="string" />
     <java-symbol type="array" name="config_rebootActionsList" />
     <java-symbol type="array" name="values_globalActionsList" />
+
+    <!-- Whether to show WiFi/Hotspot standard -->
+    <java-symbol type="bool" name="config_show_network_standard" />
 </resources>
