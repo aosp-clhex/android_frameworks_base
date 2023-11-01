@@ -47,8 +47,6 @@ import com.android.systemui.statusbar.policy.KeyguardStateController;
 import com.android.systemui.statusbar.policy.OnHeadsUpChangedListener;
 import com.android.systemui.util.ViewController;
 
-import com.android.systemui.shade.NotificationPanelViewController;
-
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.BiConsumer;
@@ -89,8 +87,6 @@ public class HeadsUpAppearanceController extends ViewController<HeadsUpStatusBar
     private final View mClockView;
     private final Optional<View> mOperatorNameViewOptional;
 
-    private final NotificationPanelViewController mNotificationPanelViewController;
-
     @VisibleForTesting
     float mExpandedHeight;
     @VisibleForTesting
@@ -123,8 +119,7 @@ public class HeadsUpAppearanceController extends ViewController<HeadsUpStatusBar
             NotificationRoundnessManager notificationRoundnessManager,
             HeadsUpStatusBarView headsUpStatusBarView,
             Clock clockView,
-            @Named(OPERATOR_NAME_FRAME_VIEW) Optional<View> operatorNameViewOptional,
-            NotificationPanelViewController notificationPanelViewController) {
+            @Named(OPERATOR_NAME_FRAME_VIEW) Optional<View> operatorNameViewOptional) {
         super(headsUpStatusBarView);
         mNotificationIconAreaController = notificationIconAreaController;
         mNotificationRoundnessManager = notificationRoundnessManager;
@@ -140,7 +135,6 @@ public class HeadsUpAppearanceController extends ViewController<HeadsUpStatusBar
         mExpandedHeight = stackScrollerController.getExpandedHeight();
 
         mStackScrollerController = stackScrollerController;
-        mNotificationPanelViewController = notificationPanelViewController;
         mShadeViewController = shadeViewController;
         mStackScrollerController.setHeadsUpAppearanceController(this);
         mClockView = clockView;
@@ -222,13 +216,12 @@ public class HeadsUpAppearanceController extends ViewController<HeadsUpStatusBar
             boolean animateIsolation = false;
             if (newEntry == null) {
                 // no heads up anymore, lets start the disappear animation
-                mNotificationPanelViewController.reTickerView(false);
+
                 setShown(false);
                 animateIsolation = !isExpanded();
             } else if (previousEntry == null) {
                 // We now have a headsUp and didn't have one before. Let's start the disappear
                 // animation
-                mNotificationPanelViewController.reTickerView(true);
                 setShown(true);
                 animateIsolation = !isExpanded();
             }
