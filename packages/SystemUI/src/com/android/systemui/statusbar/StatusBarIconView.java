@@ -39,7 +39,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.os.Trace;
 import android.os.UserHandle;
-import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -68,7 +67,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class StatusBarIconView extends AnimatedImageView implements StatusIconDisplayable {
-
     public static final int NO_COLOR = 0;
 
     /**
@@ -183,7 +181,6 @@ public class StatusBarIconView extends AnimatedImageView implements StatusIconDi
     private Runnable mOnDismissListener;
     private boolean mIncreasedSize;
     private boolean mShowsConversation;
-    private boolean mNewIconStyle;
 
     public StatusBarIconView(Context context, String slot, StatusBarNotification sbn) {
         this(context, slot, sbn, false);
@@ -338,11 +335,6 @@ public class StatusBarIconView extends AnimatedImageView implements StatusIconDi
                 return false;
         }
     }
-
-    public void setIconStyle(boolean iconStyle) {
-        mNewIconStyle = iconStyle;
-    }
-
     /**
      * Returns whether the set succeeded.
      */
@@ -438,22 +430,14 @@ public class StatusBarIconView extends AnimatedImageView implements StatusIconDi
      * @return Drawable for this item, or null if the package or item could not
      *         be found
      */
-    public Drawable getIcon(Context sysuiContext,
+    private Drawable getIcon(Context sysuiContext,
             Context context, StatusBarIcon statusBarIcon) {
         int userId = statusBarIcon.user.getIdentifier();
         if (userId == UserHandle.USER_ALL) {
             userId = UserHandle.USER_SYSTEM;
         }
 
-        Drawable icon;
-        String pkgName = statusBarIcon.pkg;
-        try {
-            icon = pkgName.contains("systemui") || !mNewIconStyle ?
-                                statusBarIcon.icon.loadDrawableAsUser(context, userId)
-                               : context.getPackageManager().getApplicationIcon(pkgName);
-        } catch (android.content.pm.PackageManager.NameNotFoundException e) {
-            icon = statusBarIcon.icon.loadDrawableAsUser(context, userId);
-        }
+        Drawable icon = statusBarIcon.icon.loadDrawableAsUser(context, userId);
 
         TypedValue typedValue = new TypedValue();
         sysuiContext.getResources().getValue(R.dimen.status_bar_icon_scale_factor,
@@ -640,9 +624,11 @@ public class StatusBarIconView extends AnimatedImageView implements StatusIconDi
     }
 
     private void initializeDecorColor() {
-        setDecorColor(getContext().getColor(mNightMode
-                ? com.android.internal.R.color.notification_default_color_dark
-                : com.android.internal.R.color.notification_default_color_light));
+        if (mNotification != null) {
+            setDecorColor(getContext().getColor(mNightMode
+                    ? com.android.internal.R.color.notification_default_color_dark
+                    : com.android.internal.R.color.notification_default_color_light));
+        }
     }
 
     private void updateDecorColor() {
