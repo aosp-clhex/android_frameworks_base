@@ -121,18 +121,10 @@ public enum ScrimState {
         @Override
         public void prepare(ScrimState previousState) {
             mBehindAlpha = mClipQsScrim ? 1 : mDefaultScrimAlpha;
-            mBehindTint = mClipQsScrim ? Color.BLACK : mSurfaceColor;
+            mBehindTint = mClipQsScrim ? Color.BLACK : Color.TRANSPARENT;
             mNotifAlpha = mClipQsScrim ? mDefaultScrimAlpha : 0;
             mNotifTint = Color.TRANSPARENT;
             mFrontAlpha = 0f;
-        }
-
-        @Override
-        public void setSurfaceColor(int surfaceColor) {
-            super.setSurfaceColor(surfaceColor);
-            if (!mClipQsScrim) {
-                mBehindTint = mSurfaceColor;
-            }
         }
     },
 
@@ -302,7 +294,6 @@ public enum ScrimState {
     int mFrontTint = Color.TRANSPARENT;
     int mBehindTint = Color.TRANSPARENT;
     int mNotifTint = Color.TRANSPARENT;
-    int mSurfaceColor = Color.TRANSPARENT;
 
     boolean mAnimateChange = true;
     float mAodFrontScrimAlpha;
@@ -407,10 +398,6 @@ public enum ScrimState {
 
     public void setDefaultScrimAlpha(float defaultScrimAlpha) {
         mDefaultScrimAlpha = defaultScrimAlpha;
-    }
-
-    public void setSurfaceColor(int surfaceColor) {
-        mSurfaceColor = surfaceColor;
     }
 
     public void setWallpaperSupportsAmbientMode(boolean wallpaperSupportsAmbientMode) {
