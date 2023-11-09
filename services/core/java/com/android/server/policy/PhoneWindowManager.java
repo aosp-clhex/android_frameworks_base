@@ -885,9 +885,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.System.LOCKSCREEN_ENABLE_POWER_MENU), true, this,
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.TORCH_LONG_PRESS_POWER_GESTURE), false, this,
-                    UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.TORCH_POWER_BUTTON_GESTURE), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
