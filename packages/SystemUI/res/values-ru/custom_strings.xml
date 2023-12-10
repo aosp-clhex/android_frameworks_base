@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Sleep Mode -->
+    <string name="quick_settings_sleep_mode_label">Режим сна</string>
+    
+    <!-- Advance location quick setting tile -->
+    <string name="accessibility_quick_settings_location_off">Отчет о местоположении: выключено.</string>
+    <string name="quick_settings_location_secondary_battery_saving">Экономия батареи</string>
+    <string name="accessibility_quick_settings_location_battery_saving">Местоположение: режим энергосбережения.</string>
+    <string name="quick_settings_location_secondary_gps_only">Только GPS</string>
+    <string name="accessibility_quick_settings_location_gps_only">Местоположение: только GPS.</string>
+    <string name="quick_settings_location_secondary_high_accuracy">Высокая точность</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Местоположение: режим высокой точности.</string>
+
+    <!-- Data usage info in QS footer -->
+    <string name="usage_data">использовано сегодня</string>
+    <string name="usage_data_default_suffix">Мобильный интернет</string>
+    <string name="usage_wifi_default_suffix">Wi-Fi</string>
+</resources>
